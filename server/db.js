@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 
 const connectdb = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/eventDataBase', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    await mongoose.connect('mongodb://localhost:27017/eventDataBase');
     console.log('database connected');
   } catch (error) {
     console.error(' database connection failed:', error);
