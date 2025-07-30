@@ -22,4 +22,26 @@ export const getEvents = async () => {
         console.error("failed to fetch data from db: ",err);
     }
 }
+export const getEventById = async (id) => {
+    try{
+  const res = await axios.get(`${BASE_URL}/events/${id}`);
+  return res.data;
+    }
+    catch(err)
+    {
+        console.err("failed to fetch data from db: ",err);
+    }
+}
+
+export const deleteEventById = async (id) => {
+    try{
+        const res = await axios.delete(`${BASE_URL}/events/${id}`);
+        console.log(res.status(200));
+    }
+    catch(err)
+    {
+        console.err("failed to fetch data from db: ",err);
+    }
+}
+
 
