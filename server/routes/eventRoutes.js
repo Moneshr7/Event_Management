@@ -68,4 +68,37 @@ router.delete('/events', async (req, res) => {
   }
 });
 
+router.patch('/events/:id', async (req, res) => {
+  const allowedUpdates = ['title', 'location', 'date', 'description'];
+  const updates = Object.keys(req.body);
+
+  const isValid = updates.every(field => allowedUpdates.includes(field));
+
+  if (!isValid) {
+    return res.status(400).json({ error: 'you cannot update this field!' });
+  }
+
+   const updatesToApply = {};
+  updates.forEach(field => {
+    updatesToApply[field] = req.body[field];
+  });
+uuu
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+      req.params.id,
+      updatesToApply,
+      { new: true }
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
+
+    res.json(updatedEvent);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+
 module.exports=router;

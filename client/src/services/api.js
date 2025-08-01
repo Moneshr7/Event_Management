@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 const config = {
@@ -36,12 +36,22 @@ export const getEventById = async (id) => {
 export const deleteEventById = async (id) => {
     try{
         const res = await axios.delete(`${BASE_URL}/events/${id}`);
-        console.log(res.status(200));
     }
     catch(err)
     {
         console.err("failed to fetch data from db: ",err);
     }
 }
+
+export const updateEventById = async (id, data) => {
+    try{
+  const res = await axios.patch(`${BASE_URL}/events/${id}`, data);
+  return res.data;
+    }
+    catch(err)
+    {
+        console.error("failed to Update: ",err);
+    }
+};
 
 
